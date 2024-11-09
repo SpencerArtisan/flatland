@@ -52,9 +52,20 @@ class ViewSpec extends AnyFlatSpec with should.Matchers {
       .render() should be(".*.\n***\n.*.")
   }
 
-  it should "render a rectangle" in {
+  it should "render a small rectangle" in {
     View.on(World().add(Rectangle(100, 2, 1), Coord(1, 1)), 3, 3)
       .render() should be("...\n.**\n...")
+  }
+
+  it should "render a large rectangle" in {
+    View.on(World().add(Rectangle(100, 4, 2), Coord(2, 1)), 6, 4)
+      .render() should be("......\n.****.\n.****.\n......")
+  }
+
+  it should "render a smaller rectangle when the view screen is moved towards the observer" in {
+    val world = World().add(Rectangle(100, 4, 2), Coord(2, 1))
+    View.on(world, width = 6, height = 4, screenZ = -5, observerZ = -10)
+      .render() should be("......\n.**...\n......\n......")
   }
 
   it should "render a rectangle rotated through 90 degrees" in {
