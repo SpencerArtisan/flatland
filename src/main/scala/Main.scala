@@ -16,7 +16,7 @@ object Main {
 
   private def buildAnimationFrames(world: World): Seq[String] =
     LazyList.from(0).map(rotateShapes(world, _)).collect {
-      case Right(world) => Scene.from(world, 260, 200).render(BLOCK, ' ', 2)
+      case Right(world) => View.on(world, 260, 200).render(BLOCK, ' ', 2)
     }
 
   private def animate(frames: Seq[String]): Unit =
