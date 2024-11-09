@@ -64,7 +64,7 @@ class ViewSpec extends AnyFlatSpec with should.Matchers {
 
   it should "render a smaller rectangle when the view screen is moved towards the observer" in {
     val world = World().add(Rectangle(100, 4, 2), Coord(2, 1))
-    View.on(world, width = 6, height = 4, screenZ = -5, observerZ = -10)
+    View.on(world, width = 6, height = 4, screenZ = -5, observer = Coord(0, 0, -10))
       .render() should be("......\n.**...\n......\n......")
   }
 
