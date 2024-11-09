@@ -9,14 +9,14 @@ object Main {
     animate(buildAnimationFrames(buildWorld))
 
   private def buildWorld =
-    World(260, 200)
+    World()
       .add(Rectangle(SHAPE_1_ID, 160, 70), Coord(100, 90))
       .add(Rectangle(SHAPE_2_ID, 30, 70), Coord(210, 150))
       .add(Circle(SHAPE_3_ID, 24), Coord(206, 25))
 
   private def buildAnimationFrames(world: World): Seq[String] =
     LazyList.from(0).map(rotateShapes(world, _)).collect {
-      case Right(world) => Scene.from(world).render(BLOCK, ' ', 2)
+      case Right(world) => Scene.from(world, 260, 200).render(BLOCK, ' ', 2)
     }
 
   private def animate(frames: Seq[String]): Unit =

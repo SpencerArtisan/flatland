@@ -1,5 +1,5 @@
 
-case class World(width: Int, height: Int, private val shapes: Map[Int, Placement] = Map()) {
+case class World(private val shapes: Map[Int, Placement] = Map()) {
   def add(shape: Shape, coord: Coord, angle: Double = 0): World =
     this.copy(shapes = shapes + (shape.id -> Placement(coord, angle, shape)))
 

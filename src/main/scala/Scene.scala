@@ -6,9 +6,9 @@ case class Scene(occupiedCells: Seq[Seq[Boolean]]) {
 }
 
 object Scene {
-  def from(world: World): Scene = {
-    val rows = 0 until world.height
-    val columns = 0 until world.width
+  def from(world: World, width: Int, height: Int): Scene = {
+    val rows = 0 until height
+    val columns = 0 until width
 
     Scene(rows
       .map(row => columns
