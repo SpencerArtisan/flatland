@@ -16,7 +16,7 @@ object Main {
 
   private def buildAnimationFrames(world: World): Seq[String] =
     LazyList.from(0).map(rotateShapes(world, _)).collect {
-      case Right((frame, world)) => View.on(world, 260, 200, -frame / 100.0, Coord(0, 0, -10)).render(BLOCK, ' ', 2)
+      case Right((frame, world)) => View.on(world, 260, 200, Coord(- frame, - frame, -10 - frame / 4.0)).render(BLOCK, ' ', 2)
     }
 
   private def animate(frames: Seq[String]): Unit =
@@ -31,5 +31,5 @@ object Main {
       world1 <- world.rotate(SHAPE_1_ID, frameIndex * Math.PI / 20)
       world2 <- world1.rotate(SHAPE_2_ID, frameIndex * Math.PI / -12)
       world3 <- world2.move(SHAPE_3_ID, -frameIndex / 10.0, frameIndex / 10.0)
-    } yield (frameIndex, world)
+    } yield (frameIndex, world3)
 }

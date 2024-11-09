@@ -6,9 +6,10 @@ case class View(occupiedCells: Seq[Seq[Boolean]]) {
 }
 
 object View {
-  def on(world: World, width: Int, height: Int, screenZ: Double = 0, observer: Coord = Coord(0, 0, -10)): View = {
+  def on(world: World, width: Int, height: Int, observer: Coord = Coord(0, 0, -10)): View = {
     val rows = createDoubleRange(height)
     val columns = createDoubleRange(width)
+    val screenZ = observer.z + 10
 
     View(rows
       .map(row => columns
