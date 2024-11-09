@@ -10,8 +10,8 @@ object Main {
 
   private def buildWorld =
     World(260, 200)
-      .add(Rectangle(SHAPE_1_ID, 170, 70), Coord(20, 60))
-      .add(Rectangle(SHAPE_2_ID, 30, 70), Coord(200, 110))
+      .add(Rectangle(SHAPE_1_ID, 170, 70), Coord(100, 90))
+      .add(Rectangle(SHAPE_2_ID, 30, 70), Coord(210, 150))
       .add(Circle(SHAPE_3_ID, 24), Coord(180, 25))
 
   private def buildAnimationFrames(world: World): Seq[String] =

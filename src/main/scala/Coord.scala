@@ -1,14 +1,10 @@
 
 case class Coord(x: Double, y: Double) {
+  val distanceFromOrigin: Double = Math.sqrt(x * x + y * y)
+
   def +(other: Coord): Coord = Coord(x + other.x, y + other.y)
 
   def -(other: Coord): Coord = Coord(x - other.x, y - other.y)
-
-  def distanceFrom(center: Coord): Double =
-    (this - center).distanceFromOrigin()
-
-  def distanceFromOrigin(): Double =
-    Math.sqrt(x * x + y * y)
 
   def isWithin(rectangle: Rectangle): Boolean = {
     val xWithin = x >= 0 && x < rectangle.width

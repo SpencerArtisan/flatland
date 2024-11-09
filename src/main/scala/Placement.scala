@@ -1,13 +1,12 @@
-case class Placement(topLeft: Coord, rotatedRadians: Double, shape: Shape) {
+case class Placement(center: Coord, rotatedRadians: Double, shape: Shape) {
   def occupiesSpaceAt(coord: Coord): Boolean = {
-    val rotationCenter = this.topLeft + shape.center
-    val coordRelativeToRotationCenter = coord - rotationCenter
+    val coordRelativeToRotationCenter = coord - center
     val rotatedCoordRelativeToRotationCenter = coordRelativeToRotationCenter.rotate(rotatedRadians)
-    val rotatedCoord = rotatedCoordRelativeToRotationCenter + rotationCenter
-    val relativeToPlacement = rotatedCoord - this.topLeft
+    val rotatedCoord = rotatedCoordRelativeToRotationCenter + center
+    val relativeToPlacement = rotatedCoord - this.center
     shape.occupiesSpaceAt(relativeToPlacement)
   }
 
   def rotate(radians: Double): Placement =
-    new Placement(topLeft, rotatedRadians + radians, shape)
+    new Placement(center, rotatedRadians + radians, shape)
 }

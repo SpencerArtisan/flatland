@@ -58,20 +58,25 @@ class SceneSpec extends AnyFlatSpec with should.Matchers {
   }
 
   it should "render a rectangle rotated through 90 degrees" in {
-    Scene.from(World(3, 3).add(Rectangle(100, 3, 1), Coord(0, 0), Math.PI / 2))
+    Scene.from(World(3, 3).add(Rectangle(100, 3, 1), Coord(1, 1), Math.PI / 2))
       .render() should be(".*.\n.*.\n.*.")
   }
 
   it should "rotate a rectangle after placement" in {
     val s = for {
-      w <- World(3, 3).add(Rectangle(100, 3, 1), Coord(0, 0)).rotate(100, Math.PI / 2)
+      w <- World(3, 3).add(Rectangle(100, 3, 1), Coord(1, 1)).rotate(100, Math.PI / 2)
       scene = Scene.from(w).render()
     } yield scene
     s should be(Right(".*.\n.*.\n.*."))
   }
 
   it should "render a rectangle which fills the entire world" in {
-    Scene.from(World(3, 3).add(Rectangle(100, 5, 5), Coord(-1, -1)))
+    Scene.from(World(3, 3).add(Rectangle(100, 5, 5), Coord(1, 1)))
       .render() should be("***\n***\n***")
+  }
+
+  it should "not render a rectangle which is outside the world" in {
+    Scene.from(World(3, 3).add(Rectangle(100, 5, 5), Coord(100, 100)))
+      .render() should be("...\n...\n...")
   }
 }
