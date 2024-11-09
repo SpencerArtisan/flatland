@@ -6,8 +6,15 @@ import org.scalatest.EitherValues._
 class WorldSpec extends AnyFlatSpec with should.Matchers {
 
   it should "support adding a rectangle" in {
-    val world = World().add(Rectangle(100, 2, 1), Coord(1, 1))
+    val world = World().add(Rectangle(100, 2, 1), Coord(1, 0))
     world.exists(placement => placement.shape.id == 100) should be (true)
+    world.exists(placement => placement.occupiesSpaceAt(Coord(1, 0))) should be (true)
+    world.exists(placement => placement.occupiesSpaceAt(Coord(0.01, 0))) should be (true)
+    world.exists(placement => placement.occupiesSpaceAt(Coord(-0.1, 0))) should be (false)
+    world.exists(placement => placement.occupiesSpaceAt(Coord(1, 0.51))) should be (false)
+    world.exists(placement => placement.occupiesSpaceAt(Coord(1, -0.51))) should be (false)
+    world.exists(placement => placement.occupiesSpaceAt(Coord(2, 0))) should be (true)
+    world.exists(placement => placement.occupiesSpaceAt(Coord(2.01, 0))) should be (false)
   }
 
   it should "support rotating a rectangle" in {

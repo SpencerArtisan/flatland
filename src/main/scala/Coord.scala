@@ -9,8 +9,8 @@ case class Coord(x: Double, y: Double, z: Double = 0) {
   def -(other: Coord): Coord = Coord(x - other.x, y - other.y, z - other.z)
 
   def isWithin(rectangle: Rectangle): Boolean = {
-    val xWithin = x >= 0 && x < rectangle.width
-    val yWithin = y >= 0 && y < rectangle.height
+    val xWithin = x >= 0 && x <= rectangle.width
+    val yWithin = y >= 0 && y <= rectangle.height
     xWithin && yWithin
   }
 

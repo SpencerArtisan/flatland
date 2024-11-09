@@ -23,66 +23,42 @@ class ViewSpec extends AnyFlatSpec with should.Matchers {
     View.on(World(), 3, 2).render() should be("...\n...")
   }
 
-  it should "not render a dot outside the world" in {
-    View.on(World().add(Dot(100), Coord(-1, -1)), 2, 2).render() should be("..\n..")
-  }
-
-  it should "render a single dot in the top left" in {
-    View.on(World().add(Dot(100), Coord(0, 0)), 2, 2).render() should be("*.\n..")
-  }
-
-  it should "render a single dot in the bottom right" in {
-    View.on(World().add(new Dot(100), Coord(1, 1)), 2, 2).render() should be("..\n.*")
-  }
-
-  it should "render multiple dots" in {
-    View.on(World().add(Dot(100), Coord(0, 0))
-      .add(Dot(101), Coord(1, 1)), 2, 2)
-      .render() should be("*.\n.*")
-  }
-
-  it should "render colocated dots as one dot" in {
-    View.on(World().add(Dot(100), Coord(0, 0))
-      .add(Dot(101), Coord(0, 0)), 2, 2)
-      .render() should be("*.\n..")
-  }
-
   it should "render a circle" in {
-    View.on(World().add(Circle(100, 1), Coord(1, 1)), 3, 3)
+    View.on(World().add(Circle(100, 1), Coord.ZERO), 3, 3)
       .render() should be(".*.\n***\n.*.")
   }
 
   it should "render a small rectangle" in {
-    View.on(World().add(Rectangle(100, 2, 1), Coord(1, 1)), 3, 3)
-      .render() should be("...\n.**\n...")
+    View.on(World().add(Rectangle(100, 3, 1), Coord.ZERO), 3, 1)
+      .render() should be("***")
   }
 
   it should "render a large rectangle" in {
-    View.on(World().add(Rectangle(100, 4, 2), Coord(2, 1)), 6, 4)
+    View.on(World().add(Rectangle(100, 4, 2), Coord.ZERO), width = 6, height = 4, observer = Coord(0, 0, -10))
       .render() should be("......\n.****.\n.****.\n......")
   }
 
   it should "render a smaller rectangle when the view screen is moved towards the observer" in {
-    val world = World().add(Rectangle(100, 4, 2), Coord(2, 1))
+    val world = World().add(Rectangle(100, 4, 2), Coord.ZERO)
     View.on(world, width = 6, height = 4, screenZ = -5, observer = Coord(0, 0, -10))
-      .render() should be("......\n.**...\n......\n......")
+      .render() should be("......\n..**..\n..**..\n......")
   }
 
   it should "render a rectangle rotated through 90 degrees" in {
-    View.on(World().add(Rectangle(100, 3, 1), Coord(1, 1), Math.PI / 2), 3, 3)
+    View.on(World().add(Rectangle(100, 3, 1), Coord.ZERO, Math.PI / 2), 3, 3)
       .render() should be(".*.\n.*.\n.*.")
   }
 
   it should "rotate a rectangle after placement" in {
     val s = for {
-      w <- World().add(Rectangle(100, 3, 1), Coord(1, 1)).rotate(100, Math.PI / 2)
+      w <- World().add(Rectangle(100, 3, 1), Coord.ZERO).rotate(100, Math.PI / 2)
       scene = View.on(w, 3, 3).render()
     } yield scene
     s should be(Right(".*.\n.*.\n.*."))
   }
 
   it should "render a rectangle which fills the entire world" in {
-    View.on(World().add(Rectangle(100, 5, 5), Coord(1, 1)), 3, 3)
+    View.on(World().add(Rectangle(100, 5, 5), Coord.ZERO), 3, 3)
       .render() should be("***\n***\n***")
   }
 
